@@ -16,12 +16,12 @@ var paths = {
     },
     scripts: {
         js: {
-            src: ["src/scripts/**/*.js"],
+            src: ["src/plugin/**/*.js"],
             output: {
                 file: "knappar.js",
                 path: "dist"
             }
-        }
+        },
     }
 };
 
@@ -41,7 +41,7 @@ function createTask(name, type, options) {
 
             .pipe(plugins.if(type == "scripts", plugins.uglify()))
             .pipe(plugins.if(type == "scripts", plugins.rename( function(path) {
-                path.basename += ".min"
+                path.basename += ".min";
             })))
             .pipe(plugins.if(type == "scripts", gulp.dest(options[name].output.path)))
 
