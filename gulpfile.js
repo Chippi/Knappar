@@ -38,6 +38,13 @@ function createTask(name, type, options) {
                 browsers: ['last 2 version']
             })))
             .pipe(gulp.dest(options[name].output.path))
+
+            .pipe(plugins.if(type == "scripts", plugins.uglify()))
+            .pipe(plugins.if(type == "scripts", plugins.rename( function(path) {
+                path.basename += ".min"
+            })))
+            .pipe(plugins.if(type == "scripts", gulp.dest(options[name].output.path)))
+
             .pipe(plugins.if(type == "styles", browserSync.stream()));
     });
 
